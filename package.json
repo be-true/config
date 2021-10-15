@@ -1,7 +1,7 @@
 {
   "name": "@be-true/config",
   "version": "0.0.0",
-  "description": "LIbrary for manage config",
+  "description": "Library for manage configuration for node.js",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
@@ -16,7 +16,8 @@
   "keywords": [
     "config",
     "envs",
-    "environments"
+    "environments",
+    "typescript"
   ],
   "author": "eawapownikov@gmail.com",
   "license": "MIT",

@@ -45,7 +45,7 @@ export class ExampleConfig implements IExampleConfig {
 }
 ```
 
-### Где будет используется
+### Где будет использоваться
 ```typescript
 interface IExampleConfig {
     appHost: string,
