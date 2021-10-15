@@ -1,37 +1,33 @@
 {
-  "name": "@be-true/contract",
+  "name": "@be-true/config",
   "version": "0.0.0",
-  "description": "LIbrary for contract programming. Validation, export to OpenApi (Swagger)",
+  "description": "LIbrary for manage config",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
     "start": "npm run build && node ./dist/index.js",
     "build": "tsc",
-    "test": "jest"
+    "test": "npm run build && metatests dist/test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/be-true/contract.git"
   },
   "keywords": [
-    "swagger",
-    "openapi",
-    "jsonschema",
-    "contract",
-    "swaggerui"
+    "config",
+    "envs",
+    "environments"
   ],
   "author": "eawapownikov@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/be-true/contract/issues"
+    "url": "https://github.com/be-true/config/issues"
   },
-  "homepage": "https://github.com/be-true/contract#readme",
-  "dependencies": {
-    "jsonschema": "^1.4.0"
-  },
+  "homepage": "https://github.com/be-true/config#readme",
+  "dependencies": {},
   "devDependencies": {
-    "@types/json-schema": "^7.0.9",
     "@types/node": "^16.10.5",
+    "metatests": "^0.7.2",
     "typescript": "^4.4.4"
   }
 }

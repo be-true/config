@@ -1,15 +1,9 @@
-import { Contractor } from "./contractor";
+import { ConfigItem } from "./ConfigItem";
+import { IFromEnv } from "./types";
 
-export const enum Schemas {
-  User = "User",
-  UserLogin = "UserLogin",
-  Role = "Role"
+export const fromEnv: IFromEnv = (envName: string) => {
+  const value = "1";
+  return new ConfigItem(value);
 }
-export const contractor = new Contractor<Schemas>();
-export type MyContractor = typeof contractor;
-(async () => {
-    await contractor.loadSchemas(__dirname + "/schemas")
-    console.log(contractor.validator.schemas);
-    const result = contractor.validate({ login: 'asd', password: "asd" }, Schemas.UserLogin);
-    console.log(result.errors);
-})()
+
+fromEnv("APP_HOST").required().asString()
