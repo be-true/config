@@ -45,7 +45,14 @@ export class ConfigItem implements AccessorsOption {
   }
 
   asBoolean(): boolean | undefined {
-    return this.value ? true : false;
+    this.assertIsRequired();
+    let value = this.getValueOrDefault();
+    if (value === undefined) return undefined;
+    if (typeof value === 'boolean') return value;
+    value = value.toLowerCase();
+    if(['0', 'false'].includes(value)) return false;
+    if(['1', 'true'].includes(value)) return true;
+    throw new ParseError();
   }
 
   asUrl(): string | undefined {
