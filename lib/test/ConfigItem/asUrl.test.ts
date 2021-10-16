@@ -1,6 +1,6 @@
 const metatests = require("metatests");
 import { ConfigItem } from "../../ConfigItem";
-import { ParseError } from "../../errors";
+import { FormatError } from "../../errors";
 
 metatests.testSync("ConfigItem: asUrl", (test: any) => {
     const item = new ConfigItem("http://domain.ru").asUrl();
@@ -12,7 +12,7 @@ metatests.testSync("ConfigItem: asUrl. ParseError. Schema", (test: any) => {
         new ConfigItem("domain.ru").asUrl();
         test.strictEqual(false, true)
     } catch(e) {
-        test.strictEqual(e instanceof ParseError, true)
+        test.strictEqual(e instanceof FormatError, true)
     }
 });
 

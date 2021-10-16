@@ -1,4 +1,4 @@
-import { EnumNotFoundError, ParseError, RequiredError } from "./errors";
+import { EnumNotFoundError, FormatError, RequiredError } from "./errors";
 import { AccessorsOption, AccessorsRequired } from "./types";
 
 export class ConfigItem implements AccessorsOption {
@@ -7,7 +7,11 @@ export class ConfigItem implements AccessorsOption {
   private exampleText: string | undefined;
   private defaultValue: any | undefined;
 
-  constructor(private value?: string) {}
+  constructor(
+    private value?: string,
+    private envName?: string,
+    private context?: string
+  ) {}
 
   description(text: string): this {
     this.descriptionText = text;
@@ -40,7 +44,7 @@ export class ConfigItem implements AccessorsOption {
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;
     const result = parseInt(value);
-    if (Number.isNaN(result)) throw new ParseError();
+    if (Number.isNaN(result)) this.assertFormat();
     return result;
   }
 
@@ -48,18 +52,18 @@ export class ConfigItem implements AccessorsOption {
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;
-    if (typeof value === 'boolean') return value;
+    if (typeof value === "boolean") return value;
     value = value.toLowerCase();
-    if(['0', 'false'].includes(value)) return false;
-    if(['1', 'true'].includes(value)) return true;
-    throw new ParseError();
+    if (["0", "false"].includes(value)) return false;
+    if (["1", "true"].includes(value)) return true;
+    this.assertFormat();
   }
 
   asUrl(): string | undefined {
     const value = this.asString();
     if (value === undefined) return undefined;
     if (value.indexOf("http://") !== 0 && value.indexOf("https://") !== 0) {
-      throw new ParseError();
+      this.assertFormat();
     }
     return value.replace(/\/+$/, "");
   }
@@ -68,9 +72,9 @@ export class ConfigItem implements AccessorsOption {
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;
-    value = value.toLowerCase()
-    const enums = listValues.map(i => i.toLowerCase());
-    if (!enums.includes(value)) throw new EnumNotFoundError()
+    value = value.toLowerCase();
+    const enums = listValues.map((i) => i.toLowerCase());
+    if (!enums.includes(value)) this.assertEnum();
     return value;
   }
 
@@ -80,8 +84,25 @@ export class ConfigItem implements AccessorsOption {
       this.value === undefined &&
       this.defaultValue === undefined
     ) {
-      throw new RequiredError("Required field");
+      throw new RequiredError(`Required environment variable '${this.envName}'`, {
+        envName: this.envName || '',
+        value: this.value || '',
+      });
     }
+  }
+
+  private assertFormat() {
+      throw new FormatError(`Not valid format for environment variable '${this.envName}'`, {
+        envName: this.envName || '',
+        value: this.value || '',
+      });
+  }
+
+  private assertEnum() {
+      throw new EnumNotFoundError(`Not found item '${this.value}' for environment variable '${this.envName}'`, {
+        envName: this.envName || '',
+        value: this.value || '',
+      });
   }
 
   private getValueOrDefault() {

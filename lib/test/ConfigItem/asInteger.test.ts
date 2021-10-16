@@ -1,6 +1,6 @@
 const metatests = require("metatests");
 import { ConfigItem } from "../../ConfigItem";
-import { ParseError, RequiredError } from "../../errors";
+import { FormatError, RequiredError } from "../../errors";
 
 
 metatests.testSync("ConfigItem: asInteger", (test: any) => {
@@ -32,7 +32,7 @@ metatests.testSync("ConfigItem: asInteger. Parse error", (test: any) => {
     try {
         new ConfigItem("a").asInteger();
     } catch(e) {
-        test.strictEqual(e instanceof ParseError, true);
+        test.strictEqual(e instanceof FormatError, true);
     }
 });
 

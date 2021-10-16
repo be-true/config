@@ -10,7 +10,7 @@ export interface AccessorsOption extends Accessors {
     description(text: string): this;
     example(text: string): this;
     default(value: any): this;
-    required(): Accessors<true>;
+    required(): AccessorsRequired;
 }
 
 export interface AccessorsRequired extends Accessors<true> {
@@ -19,5 +19,5 @@ export interface AccessorsRequired extends Accessors<true> {
     default(value: any): this;
 }
 
-export type IFromEnv = (envName: string) => AccessorsOption;
+export type IFromEnv = (envName: string, context: string) => AccessorsOption;
 

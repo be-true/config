@@ -1,13 +1,14 @@
 class ErrorBase extends Error {}
 
-export class RequiredError extends ErrorBase {};
-export class ParseError extends ErrorBase {
-    constructor(message = "Не верный формат") {
+interface ConfigItemErrorParams {
+    envName: string,
+    value: string,
+}
+class ConfigItemError extends ErrorBase {
+    constructor(message: string, public params: ConfigItemErrorParams) {
         super(message);
     }
-};
-export class EnumNotFoundError extends ErrorBase {
-    constructor(message = "Не найдено значение среди указанных") {
-        super(message);
-    }
-};
+}
+export class RequiredError extends ConfigItemError {};
+export class FormatError extends ConfigItemError {};
+export class EnumNotFoundError extends FormatError {};
