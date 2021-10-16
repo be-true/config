@@ -6,3 +6,8 @@ export class ParseError extends ErrorBase {
         super(message);
     }
 };
+export class EnumNotFoundError extends ErrorBase {
+    constructor(message = "Не найдено значение среди указанных") {
+        super(message);
+    }
+};

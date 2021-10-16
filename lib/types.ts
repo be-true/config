@@ -3,6 +3,7 @@ export interface Accessors<isRequired = undefined> {
     asInteger(): isRequired extends undefined? number | undefined : number ;
     asBoolean(): isRequired extends undefined? boolean | undefined : boolean ;
     asUrl(): isRequired extends undefined? string | undefined : string ;
+    asEnum(listValues: string[]): isRequired extends undefined? string | undefined : string ;
 }
 
 export interface AccessorsOption extends Accessors {

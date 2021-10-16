@@ -1,5 +1,5 @@
-import { ParseError, RequiredError } from "./errors";
-import { Accessors, AccessorsOption, AccessorsRequired } from "./types";
+import { EnumNotFoundError, ParseError, RequiredError } from "./errors";
+import { AccessorsOption, AccessorsRequired } from "./types";
 
 export class ConfigItem implements AccessorsOption {
   private isRequired = false;
@@ -62,6 +62,16 @@ export class ConfigItem implements AccessorsOption {
       throw new ParseError();
     }
     return value.replace(/\/+$/, "");
+  }
+
+  asEnum(listValues: string[]): string | undefined {
+    this.assertIsRequired();
+    let value = this.getValueOrDefault();
+    if (value === undefined) return undefined;
+    value = value.toLowerCase()
+    const enums = listValues.map(i => i.toLowerCase());
+    if (!enums.includes(value)) throw new EnumNotFoundError()
+    return value;
   }
 
   private assertIsRequired() {
