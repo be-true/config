@@ -1,18 +1,18 @@
-import { fromEnvTest as fromEnv } from "../test/fromEnvTest";
 import { configClass } from "../configClass";
+import { ConfigBase } from "../ConfigBase";
 
-const context = "Api к внешнему клиенту";
 @configClass
-export class ExternalApiClientConfig {
+export class ExternalApiClientConfig extends ConfigBase {
+  context: string = "Api к внешнему клиенту";
   get apiHost() {
-    return fromEnv("API_HOST", context)
+    return this.fromEnv("API_HOST")
       .description("URL внешнего API")
       .required()
       .asUrl();
   }
 
   get apiToken() {
-    return fromEnv("API_TOKEN", context)
+    return this.fromEnv("API_TOKEN")
       .description("Токен доступа внешнего API")
       .required()
       .asString();

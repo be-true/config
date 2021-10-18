@@ -1,11 +1,11 @@
-import { fromEnvTest as fromEnv } from "../test/fromEnvTest";
 import { configClass } from "../configClass";
+import { ConfigBase } from "../ConfigBase";
 
-const context = "Api к внешнему клиенту";
 @configClass
-export class ServerConfig {
+export class ServerConfig extends ConfigBase {
+  context: string = "Настройки WEB сервера";
   get appHost() {
-    return fromEnv("APP_HOST", context)
+    return this.fromEnv("APP_HOST")
       .description("Хост на котором запускается веб сервер")
       .required()
       .default("http://localhost")
@@ -13,7 +13,7 @@ export class ServerConfig {
   }
 
   get appPort() {
-    return fromEnv("APP_PORT", context)
+    return this.fromEnv("APP_PORT")
       .description("Порт на котором запускается веб сервер")
       .required()
       .default(3000)
@@ -21,7 +21,7 @@ export class ServerConfig {
   }
 
   get appEnv() {
-    return fromEnv("APP_ENV", context)
+    return this.fromEnv("APP_ENV")
       .description("Окружение в котором запускается приложение")
       .required()
       .default("localhost")

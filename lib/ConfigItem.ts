@@ -78,31 +78,46 @@ export class ConfigItem implements AccessorsOption {
     return value;
   }
 
+  export() {
+    return {
+      value: this.value,
+      variable: this.envName,
+      context: this.context,
+      required: this.isRequired,
+      description: this.descriptionText,
+      example: this.exampleText,
+      defaultValue: this.defaultValue,
+    }
+  }
+
   private assertIsRequired() {
     if (
       this.isRequired &&
       this.value === undefined &&
       this.defaultValue === undefined
     ) {
-      throw new RequiredError(`Required environment variable '${this.envName}'`, {
-        envName: this.envName || '',
-        value: this.value || '',
-      });
+      const params = this.createErrorParams();
+      throw new RequiredError(
+        `Required environment variable '${this.envName}'`,
+        params
+      );
     }
   }
 
   private assertFormat() {
-      throw new FormatError(`Not valid format for environment variable '${this.envName}'`, {
-        envName: this.envName || '',
-        value: this.value || '',
-      });
+    const params = this.createErrorParams();
+    throw new FormatError(
+      `Not valid format for environment variable '${this.envName}'`,
+      params
+    );
   }
 
   private assertEnum() {
-      throw new EnumNotFoundError(`Not found item '${this.value}' for environment variable '${this.envName}'`, {
-        envName: this.envName || '',
-        value: this.value || '',
-      });
+    const params = this.createErrorParams();
+    throw new EnumNotFoundError(
+      `Not found item '${this.value}' for environment variable '${this.envName}'`,
+      params
+    );
   }
 
   private getValueOrDefault() {
@@ -112,5 +127,12 @@ export class ConfigItem implements AccessorsOption {
     }
 
     return value;
+  }
+
+  private createErrorParams() {
+    return {
+      envName: this.envName || "",
+      value: this.value || "",
+    };
   }
 }
