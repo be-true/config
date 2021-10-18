@@ -1,25 +1,25 @@
 ## Фичи
+- [x] Проверяет все переменные и выводить сообщение в консоль о не хватающих во время запуска приложения.
 - [ ] Умеет генерировать документацию в MD файл в виде таблицы.
-- [ ] Проверяет все переменные и выводить сообщение в консоль о не хватающих
-- [ ] Стирает env переменные, которые были использованы по команде.
-- [ ] Умеет указывать, что одни правила валидации включаются в зависимости от наличия значения в других переменных
+- [ ] Стирает env переменные, после первой их загрузки.
+- [ ] Зависимость обязательности одних переменных от значения других.
 
 ## TODO
-- Механизм валидации для всех конфигурационных файлов
-- Вывод документации
-- Вывод ошибки
-
+- Написать тесты для configInit.
+- Вывод документации.
+- Перевести все сообщения и документацию на английский.
 
 ## Использование
 ### Описание конфигурации
 ```typescript
-import { config, fromEnv } from "@be-true/config"
+import { config, ConfigBase } from "@be-true/config"
 import { IExampleConfig } from ".";
 
 @config
-export class ExampleConfig implements IExampleConfig {
+export class ExampleConfig extends ConfigBase implements IExampleConfig {
+    context = "example config",
     get appHost(): string {
-        return fromEnv("APP_HOST")
+        return this.fromEnv("APP_HOST")
             .required()
             .description("Доменное имя на котором запускается проект")
             .example("https://domain.ru") // Переопределяем пример. В других случаях example генерируется из типа
@@ -29,19 +29,19 @@ export class ExampleConfig implements IExampleConfig {
     }
 
     get appPort(): number {
-        return fromEnv("APP_PORT")
+        return this.fromEnv("APP_PORT")
             .required()
             .description("Порт на котором запускается приложение")
             .default(3000)
-            .asInt()
+            .asInteger()
         ;
     }
 
     get featureFlag(): ?boolean {
-        return fromEnv("FEATURE_FLAG")
+        return this.fromEnv("FEATURE_FLAG")
             .description('Чтобы включить функциональность укажите этот флаг')
             .default(false)
-            .asBool()
+            .asBoolean()
         ;
     }
 }
