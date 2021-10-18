@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run build && node ./dist/index.js",
     "build": "tsc",
-    "test": "npm run clean && npm run build && metatests dist/test",
+    "test": "npm run clean && npm run build && metatests dist/test --dependentSubtests=true",
     "clean": "rm -rf ./dist"
   },
   "repository": {

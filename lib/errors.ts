@@ -1,3 +1,5 @@
+import { ConfigItem } from "./ConfigItem";
+
 class ErrorBase extends Error {}
 
 interface ConfigItemErrorParams {
@@ -12,3 +14,13 @@ class ConfigItemError extends ErrorBase {
 export class RequiredError extends ConfigItemError {};
 export class FormatError extends ConfigItemError {};
 export class EnumNotFoundError extends FormatError {};
+
+export interface ConfigInitErrorParams {
+    required: ConfigItem[],
+    format: ConfigItem[],
+}
+export class ConfigInitError extends ErrorBase {
+    constructor(public params: ConfigInitErrorParams) {
+        super("Configuration init error");
+    }
+}

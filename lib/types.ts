@@ -21,3 +21,7 @@ export interface AccessorsRequired extends Accessors<true> {
 
 export type IFromEnv = (envName: string, context: string) => AccessorsOption;
 
+export interface ConfigInitOptions {
+    throwError?: boolean
+}
+
