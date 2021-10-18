@@ -20,3 +20,15 @@ metatests.testSync("ConfigItem: asString. Default", (test: any) => {
     const item = new ConfigItem().default("Default").asString();
     test.strictEqual(item, "Default");
 });
+
+metatests.testSync("ConfigItem: asString. Example as default", (test: any) => {
+    const item = new ConfigItem('a');
+    item.asString();
+    test.strictEqual(item.export().type, "string");
+});
+
+metatests.testSync("ConfigItem: asString. Example as handle setup", (test: any) => {
+    const item = new ConfigItem("").example("my example text");
+    item.asString();
+    test.strictEqual(item.export().example, "my example text");
+});

@@ -36,3 +36,15 @@ metatests.testSync("ConfigItem: asEnum. Case unsensitive", (test: any) => {
         test.strictEqual(e instanceof EnumNotFoundError, true);
     }
 });
+
+metatests.testSync("ConfigItem: asEnum. Example as default", (test: any) => {
+    const item = new ConfigItem(enumList[0]);
+    item.asEnum(enumList);
+    test.strictEqual(item.export().type, "enum: " + enumList.join(", "));
+});
+
+metatests.testSync("ConfigItem: asEnum. Example as handle setup", (test: any) => {
+    const item = new ConfigItem(enumList[0]).example("my example text");
+    item.asEnum(enumList);
+    test.strictEqual(item.export().example, "my example text");
+});

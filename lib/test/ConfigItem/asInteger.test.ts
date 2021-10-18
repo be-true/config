@@ -43,3 +43,15 @@ metatests.testSync("ConfigItem: asInteger. Required", (test: any) => {
         test.strictEqual(e instanceof RequiredError, true);
     }
 });
+
+metatests.testSync("ConfigItem: asInteger. Example as default", (test: any) => {
+    const item = new ConfigItem();
+    item.asInteger();
+    test.strictEqual(item.export().type, "integer");
+});
+
+metatests.testSync("ConfigItem: asInteger. Example as handle setup", (test: any) => {
+    const item = new ConfigItem().example("my example text");
+    item.asInteger();
+    test.strictEqual(item.export().example, "my example text");
+});

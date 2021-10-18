@@ -38,12 +38,12 @@ export const configInit = async () => {
       if (errorsRequired.length > 0) {
         console.log();
         console.log("\x1b[41m %s \x1b[0m", "Need to be set next environment variables");
-        console.table(errorsRequired.map(i => i.export()), ['variable', 'context', 'description', 'example']);
+        console.table(errorsRequired.map(i => i.export()), ['context', 'variable', 'type', 'description', 'example']);
       }
       if (errorsFormat.length > 0) {
         console.log();
         console.log("\x1b[41m %s \x1b[0m", "Error format for next environment variables");
-        console.table(errorsFormat.map(i => i.export()), ['value', 'variable', 'context', 'description', 'example']);
+        console.table(errorsFormat.map(i => i.export()), ['context', 'variable', 'type', 'value', 'description', 'type', 'example']);
       }
       process.exit(1);
     }

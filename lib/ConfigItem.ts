@@ -6,6 +6,7 @@ export class ConfigItem implements AccessorsOption {
   private descriptionText: string | undefined;
   private exampleText: string | undefined;
   private defaultValue: any | undefined;
+  private type: string = '';
 
   constructor(
     private value?: string,
@@ -34,12 +35,14 @@ export class ConfigItem implements AccessorsOption {
   }
 
   asString(): string | undefined {
+    this.setType("string");
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     return value;
   }
 
   asInteger(): number | undefined {
+    this.setType("integer");
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;
@@ -49,6 +52,7 @@ export class ConfigItem implements AccessorsOption {
   }
 
   asBoolean(): boolean | undefined {
+    this.setType("boolean: true, false");
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;
@@ -61,6 +65,7 @@ export class ConfigItem implements AccessorsOption {
 
   asUrl(): string | undefined {
     const value = this.asString();
+    this.setType("url");
     if (value === undefined) return undefined;
     if (value.indexOf("http://") !== 0 && value.indexOf("https://") !== 0) {
       this.assertFormat();
@@ -69,6 +74,7 @@ export class ConfigItem implements AccessorsOption {
   }
 
   asEnum(listValues: string[]): string | undefined {
+    this.setType("enum: " + listValues.join(", "));
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;
@@ -85,6 +91,7 @@ export class ConfigItem implements AccessorsOption {
       context: this.context,
       required: this.isRequired,
       description: this.descriptionText,
+      type: this.type,
       example: this.exampleText,
       defaultValue: this.defaultValue,
     }
@@ -134,5 +141,9 @@ export class ConfigItem implements AccessorsOption {
       envName: this.envName || "",
       value: this.value || "",
     };
+  }
+
+  private setType(type: string) {
+    this.type = type;
   }
 }

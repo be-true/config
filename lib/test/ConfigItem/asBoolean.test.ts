@@ -45,3 +45,15 @@ metatests.testSync("ConfigItem: asBoolean. False", (test: any) => {
     const item = new ConfigItem("False").asBoolean();
     test.strictEqual(item, false);
 });
+
+metatests.testSync("ConfigItem: asBoolean. Example as default", (test: any) => {
+    const item = new ConfigItem("False");
+    item.asBoolean();
+    test.strictEqual(item.export().type, "boolean: true, false");
+});
+
+metatests.testSync("ConfigItem: asBoolean. Example as handle setup", (test: any) => {
+    const item = new ConfigItem("False").example("my example text");
+    item.asBoolean();
+    test.strictEqual(item.export().example, "my example text");
+});
