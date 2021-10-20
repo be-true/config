@@ -1,11 +1,11 @@
 {
   "name": "@be-true/config",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Library for manage configuration for node.js",
   "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "types": "./dist/types",
+  "files": ["dist/*"],
   "scripts": {
-    "start": "npm run build && node ./dist/index.js",
     "build": "tsc",
     "test": "npm run clean && npm run build && metatests dist/test --dependentSubtests=true",
     "clean": "rm -rf ./dist"

@@ -1,9 +1,5 @@
-import { ConfigItem } from "./ConfigItem";
-import { IFromEnv } from "./types";
-
-export const fromEnv: IFromEnv = (envName: string, context: string) => {
-  const value = process.env[envName];
-  return new ConfigItem(value, envName, context);
-}
-
-fromEnv("APP_HOST", "Test").required().asString()
+export * from "./errors";
+export { configInit } from "./configInit";
+export { configExport } from "./configExport";
+export { ConfigBase } from "./ConfigBase";
+export { configClass } from "./configClass";
