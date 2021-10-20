@@ -16,7 +16,7 @@ metatests.testSync("ConfigItem: asUrl. ParseError. Schema", (test: any) => {
     }
 });
 
-metatests.testSync("ConfigItem: asUrl. Trim last slash", (test: any) => {
+metatests.testSync("ConfigItem: asUrl. Last slash trimming", (test: any) => {
     const item = new ConfigItem("https://domain.ru/").asUrl();
     test.strictEqual(item, "https://domain.ru")
 });
