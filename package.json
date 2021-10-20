@@ -1,6 +1,6 @@
 {
   "name": "@be-true/config",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Library for manage configuration for node.js",
   "main": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
@@ -9,7 +9,8 @@
     "build": "npm run clean && tsc",
     "test": "npm run clean && npm run build && metatests dist/test --dependentSubtests=true",
     "clean": "rm -rf ./dist",
-    "my_publish": "npm run clean && npm run build && npm run test && npm publish"
+    "clean:npm": "rm -rf ./dist/example ./dist/test ./dist/types/example ./dist/types/test ",
+    "my_publish": "npm run clean && npm run build && npm run test && npm run clean:npm && npm publish"
   },
   "repository": {
     "type": "git",
