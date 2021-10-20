@@ -9,7 +9,7 @@
     "build": "npm run clean && tsc",
     "test": "npm run clean && npm run build && metatests dist/test --dependentSubtests=true",
     "clean": "rm -rf ./dist",
-    "publish": "npm run clean && npm run build && npm run test && npm publish"
+    "my_publish": "npm run clean && npm run build && npm run test && npm publish"
   },
   "repository": {
     "type": "git",
