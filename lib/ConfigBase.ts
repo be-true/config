@@ -19,6 +19,12 @@ export abstract class ConfigBase {
     return Object.values(this.items);
   }
 
+  public runItem(getterName: string) {
+    const self = this;
+    // @ts-ignore
+    self[getterName]
+  }
+
   protected getEnvValue(envName: string) {
     return process.env[envName];
   }
