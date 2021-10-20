@@ -1,6 +1,13 @@
 const metatests = require("metatests");
+import fs from "fs";
 import { configInit } from "../../configInit";
 import { ConfigInitError } from "../../errors";
+import { configExport } from "../../configExport";
+
+// Import Config for registered by decorator @configClass
+import "../../example/DBConfig";
+import "../../example/ServerConfig";
+import "../../example/ExternalApiClientConfig";
 
 const envs = {
   DB_HOST: "http://postgres",
@@ -10,6 +17,10 @@ const envs = {
   API_HOST: "http://domain.ru",
   API_TOKEN: "asdkhsfkjb",
 };
+
+function readFile(path: string): string {
+  return fs.readFileSync(__dirname + `/../../../lib/test/methods/out/${path}`).toString();
+}
 
 const clear = () => {
   Object.entries(envs).forEach(([name, _]) => {
@@ -23,13 +34,13 @@ const setEnvs = (envsList: { [key: string]: string }) => {
   });
 };
 
-metatests.test("ConfigInit: Without error", async (test: any) => {
+metatests.test("configInit: Without error", async (test: any) => {
   setEnvs(envs);
   await configInit({ throwError: true });
   test.end();
 });
 
-metatests.test("ConfigInit: Required. One variable.", async (test: any) => {
+metatests.test("configInit: Required. One variable.", async (test: any) => {
   const envsTest: any = { ...envs };
   delete envsTest.DB_HOST;
   setEnvs(envsTest);
@@ -47,7 +58,7 @@ metatests.test("ConfigInit: Required. One variable.", async (test: any) => {
   test.end();
 });
 
-metatests.test("ConfigInit: Format. One variable.", async (test: any) => {
+metatests.test("configInit: Format. One variable.", async (test: any) => {
   const envsTest: any = { ...envs };
   envsTest.APP_PORT = 'any text instead of number';
   setEnvs(envsTest);
@@ -62,5 +73,29 @@ metatests.test("ConfigInit: Format. One variable.", async (test: any) => {
     }
   }
 
+  test.end();
+});
+
+metatests.test("configInit: Format. One variable.", async (test: any) => {
+  const envsTest: any = { ...envs };
+  envsTest.APP_PORT = 'any text instead of number';
+  setEnvs(envsTest);
+  try {
+    await configInit({ throwError: true });
+  } catch (e) {
+    if (e instanceof ConfigInitError) {
+      test.strictEqual(e.params.format.length, 1);
+      test.strictEqual(e.params.format[0].export().variable, "APP_PORT");
+    } else {
+        test.strictEqual("An error must thrown", 'ConfigInitError');
+    }
+  }
+
+  test.end();
+});
+
+metatests.test("configExport:", async (test: any) => {
+  await configExport({ target: __dirname + "/../../../lib/test/methods/out/out.md" });
+  test.strictEqual(readFile("out.md"), readFile("out.test.md"))
   test.end();
 });

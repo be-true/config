@@ -15,6 +15,10 @@ export abstract class ConfigBase {
     return this.items[envName];
   }
 
+  getItems(): ConfigItem[] {
+    return Object.values(this.items);
+  }
+
   protected getEnvValue(envName: string) {
     return process.env[envName];
   }

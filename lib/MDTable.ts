@@ -1,5 +1,5 @@
-type MDTableData = (string | {[key: string]: any})
-type MDTableOptions = {
+export type MDTableData = (string | {[key: string]: any})
+export type MDTableOptions = {
     columns?: string[]
 }
 const defaultOptions = {};
@@ -48,7 +48,7 @@ export class MDTable {
 
         data.forEach(i => {
             Object.entries(i).forEach(([key, value]) => {
-                const length = String(value).length
+                const length = String(value ?? "").trim().length
                 if (!result.has(key)) {
                     result.set(key, length);
                 } else {
@@ -66,7 +66,7 @@ export class MDTable {
         if (width === undefined) return text;
         let spaces = width - text.length;
         if (spaces < 0) spaces = 0;
-        return text + " ".repeat(spaces);
+        return text.trim() + " ".repeat(spaces);
     }
 
     private renderHeader(): string {

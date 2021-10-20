@@ -24,4 +24,7 @@ export type IFromEnv = (envName: string, context: string) => AccessorsOption;
 export interface ConfigInitOptions {
     throwError?: boolean
 }
+export interface ConfigExportOptions {
+    target: string
+}
 

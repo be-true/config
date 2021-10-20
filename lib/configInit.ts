@@ -1,8 +1,5 @@
 import { configClasses } from "./configClass";
 
-import "./example/DBConfig";
-import "./example/ServerConfig";
-import "./example/ExternalApiClientConfig";
 import { ConfigInitError, FormatError, RequiredError } from "./errors";
 import { ConfigItem } from "./ConfigItem";
 import { ConfigInitOptions } from "./types";
@@ -50,7 +47,7 @@ export const configInit = async (options?: ConfigInitOptions) => {
         if (format.length > 0) {
           console.log();
           console.log("\x1b[41m %s \x1b[0m", "Error format for next environment variables");
-          console.table(format.map(i => i.export()), ['context', 'variable', 'type', 'value', 'description', 'type', 'example']);
+          console.table(format.map(i => i.export()), ['context', 'variable', 'type', 'value', 'description', 'example']);
         }
         process.exit(1);
       }
