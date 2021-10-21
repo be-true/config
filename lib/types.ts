@@ -18,6 +18,7 @@ export interface AccessorsRequired extends Accessors<true> {
     description(text: string): this;
     example(text: string): this;
     default(value: any): this;
+    required(): this;
 }
 
 export type IFromEnv = (envName: string, context: string) => AccessorsOption;
