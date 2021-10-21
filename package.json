@@ -1,16 +1,20 @@
 {
   "name": "@be-true/config",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Library for manage configuration for node.js",
-  "main": "./dist/index.js",
-  "types": "./dist/types/index.d.ts",
-  "files": ["dist/*"],
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "files": [
+    "lib/**/*.js",
+    "types/**/*.d.ts"
+  ],
   "scripts": {
-    "build": "npm run clean && tsc",
-    "test": "npm run clean && npm run build && metatests dist/test --dependentSubtests=true",
-    "clean": "rm -rf ./dist",
-    "clean:npm": "rm -rf ./dist/example ./dist/test ./dist/types/example ./dist/types/test ",
-    "my_publish": "npm run clean && npm run build && npm run test && npm run clean:npm && npm publish"
+    "clean:build": "rimraf 'lib/**/*.{js,d.ts}' && rimraf './types' && rimraf 'test/**/*.{js,d.ts}' && rimraf 'example/**/*.{js,d.ts}'",
+    "build": "npm run clean:build && tsc -p tsconfig.json",
+    "build:npm": "npm run clean:build && tsc -p tsconfig.npm.json",
+    "test": "npm run build && metatests test --dependentSubtests=true && npm run clean:build",
+    "publish:before": "npm run build && npm run test && npm run build:npm",
+    "publish:send": "npm publish && npm run clean:build"
   },
   "repository": {
     "type": "git",
@@ -32,6 +36,7 @@
   "devDependencies": {
     "@types/node": "^16.10.5",
     "metatests": "^0.7.2",
+    "rimraf": "^3.0.2",
     "typescript": "^4.4.4"
   }
 }

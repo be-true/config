@@ -1,6 +1,6 @@
 const metatests = require("metatests");
-import { ConfigItem } from "../../ConfigItem";
-import { EnumNotFoundError, RequiredError } from "../../errors";
+import { ConfigItem } from "../../lib/ConfigItem";
+import { EnumNotFoundError, RequiredError } from "../../lib/errors";
 
 const enumList = ["production", "develop", "localhost", "staging"];
 

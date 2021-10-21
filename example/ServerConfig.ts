@@ -1,5 +1,5 @@
-import { configClass } from "../configClass";
-import { ConfigBase } from "../ConfigBase";
+import { configClass } from "../lib/configClass";
+import { ConfigBase } from "../lib/ConfigBase";
 
 @configClass
 export class ServerConfig extends ConfigBase {

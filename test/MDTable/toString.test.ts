@@ -1,9 +1,9 @@
 import fs from "fs";
 const metatests = require("metatests");
-import { MDTable } from "../../MDTable";
+import { MDTable } from "../../lib/MDTable";
 
 function readFile(path: string): string {
-    return fs.readFileSync(__dirname + `/../../../lib/test/MDTable/fixtures/${path}`).toString();
+    return fs.readFileSync(__dirname + `/fixtures/${path}`).toString();
 }
 
 metatests.testSync("MDTable: toString. test-simple ", (test: any) => {

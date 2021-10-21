@@ -2,13 +2,3 @@
 node_modules
 *.log
 .DS_Store
-
-# code
-lib
-dist/example
-dist/test
-
-# types
-dist/types.js
-dist/types/test
-dist/types/example

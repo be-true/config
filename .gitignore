@@ -1,2 +1,6 @@
 dist
+types
 node_modules
+.vscode/settings.json
+**/*.js
+**/*.d.ts

@@ -1,6 +1,6 @@
 const metatests = require("metatests");
-import { ConfigItem } from "../../ConfigItem";
-import { FormatError } from "../../errors";
+import { ConfigItem } from "../../lib/ConfigItem";
+import { FormatError } from "../../lib/errors";
 
 metatests.testSync("ConfigItem: asUrl", (test: any) => {
     const item = new ConfigItem("http://domain.ru").asUrl();

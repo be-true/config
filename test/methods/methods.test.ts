@@ -1,8 +1,8 @@
 const metatests = require("metatests");
 import fs from "fs";
-import { configInit } from "../../configInit";
-import { ConfigInitError } from "../../errors";
-import { configExport } from "../../configExport";
+import { configInit } from "../../lib/configInit";
+import { ConfigInitError } from "../../lib/errors";
+import { configExport } from "../../lib/configExport";
 
 // Import Config for registered by decorator @configClass
 import "../../example/DBConfig";
@@ -19,7 +19,7 @@ const envs = {
 };
 
 function readFile(path: string): string {
-  return fs.readFileSync(__dirname + `/../../../lib/test/methods/out/${path}`).toString();
+  return fs.readFileSync(__dirname + `/out/${path}`).toString();
 }
 
 const clear = () => {
@@ -77,7 +77,7 @@ metatests.test("configInit: Format error.", async (test: any) => {
 });
 
 metatests.test("configExport:", async (test: any) => {
-  await configExport({ target: __dirname + "/../../../lib/test/methods/out/out.md" });
+  await configExport({ target: __dirname + "/out/out.md" });
   test.strictEqual(readFile("out.md"), readFile("out.test.md"))
   test.end();
 });

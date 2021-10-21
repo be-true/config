@@ -1,6 +1,6 @@
 const metatests = require("metatests");
-import { ConfigItem } from "../../ConfigItem";
-import { RequiredError } from "../../errors";
+import { ConfigItem } from "../../lib/ConfigItem";
+import { RequiredError } from "../../lib/errors";
 
 metatests.testSync("ConfigItem: asBoolean. 0", (test: any) => {
     const item = new ConfigItem("0").asBoolean();

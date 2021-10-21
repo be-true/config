@@ -1,6 +1,6 @@
 const metatests = require("metatests");
-import { ConfigItem } from "../../ConfigItem";
-import { FormatError, RequiredError } from "../../errors";
+import { ConfigItem } from "../../lib/ConfigItem";
+import { FormatError, RequiredError } from "../../lib/errors";
 
 
 metatests.testSync("ConfigItem: asInteger", (test: any) => {
