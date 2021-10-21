@@ -24,9 +24,9 @@ export class ConfigItem implements AccessorsOption {
     return this;
   }
 
-  default(value: any): this {
+  default(value: any): AccessorsRequired {
     this.defaultValue = value;
-    return this;
+    return this as AccessorsRequired;
   }
 
   required(): AccessorsRequired {
@@ -73,7 +73,7 @@ export class ConfigItem implements AccessorsOption {
     return value.replace(/\/+$/, "");
   }
 
-  asEnum(listValues: string[]): string | undefined {
+  asEnum<T extends string>(listValues: T[]): T | undefined {
     this.setType("enum: " + listValues.join(", "));
     this.assertIsRequired();
     let value = this.getValueOrDefault();
@@ -81,7 +81,15 @@ export class ConfigItem implements AccessorsOption {
     value = value.toLowerCase();
     const enums = listValues.map((i) => i.toLowerCase());
     if (!enums.includes(value)) this.assertEnum();
-    return value;
+    return value as T;
+  }
+
+  asArrayString(): string[] | undefined {
+    this.setType("string[]");
+    this.assertIsRequired();
+    let value = this.getValueOrDefault();
+    if (value === undefined) return undefined;
+    return value.split(",").map(i => i.trim());
   }
 
   export() {
