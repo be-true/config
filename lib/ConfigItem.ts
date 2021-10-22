@@ -6,7 +6,7 @@ export class ConfigItem implements AccessorsOption {
   private descriptionText: string | undefined;
   private exampleText: string | undefined;
   private defaultValue: any | undefined;
-  private type: string = '';
+  private type: string = "";
 
   constructor(
     private value?: string,
@@ -89,7 +89,7 @@ export class ConfigItem implements AccessorsOption {
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;
-    return value.split(",").map(i => i.trim());
+    return value.split(",").map((i) => i.trim());
   }
 
   export() {
@@ -101,8 +101,8 @@ export class ConfigItem implements AccessorsOption {
       description: this.descriptionText,
       type: this.type,
       example: this.exampleText,
-      defaultValue: this.defaultValue,
-    }
+      default: this.defaultValue,
+    };
   }
 
   private assertIsRequired() {

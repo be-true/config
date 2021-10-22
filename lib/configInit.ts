@@ -40,7 +40,7 @@ export const configInit = async (options?: ConfigInitOptions) => {
         );
         console.table(
           required.map((i) => i.export()),
-          ["context", "variable", "type", "description", "example"]
+          ["context", "variable", "type", "default", "description", "example"]
         );
       }
       if (format.length > 0) {
@@ -51,7 +51,7 @@ export const configInit = async (options?: ConfigInitOptions) => {
         );
         console.table(
           format.map((i) => i.export()),
-          ["context", "variable", "type", "value", "description", "example"]
+          ["context", "variable", "type", "default", "value", "description", "example"]
         );
       }
 

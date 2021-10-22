@@ -16,7 +16,7 @@ export const configExport = async (options: ConfigExportOptions) => {
     }
   }
 
-  const columns = ["context", "required", "variable", "type", "description", "example"];
+  const columns = ["context", "required", "variable", "type", "default", "description", "example"];
   const result = new MDTable(data, { columns }).toString();
   await fs.writeFile(options.target, result);
 };
