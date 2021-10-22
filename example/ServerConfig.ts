@@ -27,4 +27,10 @@ export class ServerConfig extends ConfigBase {
       .default("localhost")
       .asEnum(["production", "staging", "develop", "localhost"]);
   }
+
+  get appName() {
+    return this.fromEnv("APP_NAME")
+      .description("Название запущенного приложения")
+      .asString();
+  }
 }

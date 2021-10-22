@@ -8,11 +8,15 @@ export const configExport = async (options: ConfigExportOptions) => {
 
   for (const { config } of configIterator()) {
     for (const item of config.getItems()) {
-      data.push(item.export());
+      const itemExport = item.export();
+      data.push({
+        ...itemExport,
+        required: itemExport.required ? "yes" : '',
+      });
     }
   }
 
-  const columns = ["context", "variable", "type", "description", "example"];
+  const columns = ["context", "required", "variable", "type", "description", "example"];
   const result = new MDTable(data, { columns }).toString();
   await fs.writeFile(options.target, result);
 };
