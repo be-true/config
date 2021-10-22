@@ -79,7 +79,7 @@ export class ServerConfig extends ConfigBase implements IServerConfig {
 }
 ```
 
-See [DETAIL](./example/README.MD)
+See [DETAIL](./example)
 
 ## License
 Copyright (c) 2021 beTrue contributors.
