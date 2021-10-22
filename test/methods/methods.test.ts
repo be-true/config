@@ -1,13 +1,9 @@
 const metatests = require("metatests");
 import fs from "fs";
-import { configInit } from "../../lib/configInit";
-import { ConfigInitError } from "../../lib/errors";
-import { configExport } from "../../lib/configExport";
 
 // Import Config for registered by decorator @configClass
-import "../../example/DBConfig";
-import "../../example/ServerConfig";
-import "../../example/ExternalApiClientConfig";
+import "../../example/app";
+import { configExport, configInit, ConfigInitError } from "../../lib";
 
 const envs = {
   DB_HOST: "http://postgres",

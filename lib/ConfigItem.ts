@@ -52,7 +52,7 @@ export class ConfigItem implements AccessorsOption {
   }
 
   asBoolean(): boolean | undefined {
-    this.setType("boolean: true, false");
+    this.setType("boolean: true, false, 0, 1");
     this.assertIsRequired();
     let value = this.getValueOrDefault();
     if (value === undefined) return undefined;

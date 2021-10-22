@@ -1,119 +1,89 @@
-## Фичи
-- [x] Проверяет во время запуска приложения все переменные и выводит сообщение об ошибке если чего-то не хватает.
-- [x] Умеет генерировать документацию в MD файл из конфигурационных файлов.
-- [ ] Стирает env переменные, после первой их загрузки.
-- [ ] Зависимость одних переменных от значения других.
+This library for made configuring files for your application with validation, prepare data and export documentation.
+
+## install
+
+```bash
+npm i @be-true/config --save
+```
+or
+```bash
+yarn add @be-true/config
+```
+
+## GOALS
+- Zero dependencies.
+- Minimalism API.
+- Simple.
+- TypeScript friendly.
+
+## Features
+- [x] Detect error on start with report.
+    ![](./docs/example-error-report.png)
+- [x] Export of documentation about configurations
+
+    | context      | required | variable    | type                                          | default          | description                                  | example |
+    |--------------|----------|-------------|-----------------------------------------------|------------------|----------------------------------------------|---------|
+    | Database     | yes      | DB_HOST     | url                                           |                  | Host                                         |         |
+    | Database     | yes      | DB_DATABASE | string                                        |                  | Database name                                |         |
+    | Database     | yes      | DB_USER     | string                                        |                  | Login                                        |         |
+    | Database     | yes      | DB_PASSWORD | string                                        |                  | Password                                     |         |
+    | External API | yes      | API_HOST    | url                                           |                  | URL of external API                          |         |
+    | External API | yes      | API_TOKEN   | string                                        |                  | Access token of external API                 |         |
+    | WEB server   | yes      | APP_HOST    | url                                           | http://localhost | URL address of application                   |         |
+    | WEB server   | yes      | APP_PORT    | integer                                       | 3000             | Port of application                          |         |
+    | WEB server   | yes      | APP_ENV     | enum: production, staging, develop, localhost | localhost        | Environment in which application will be run |         |
+    | WEB server   |          | APP_NAME    | string                                        |                  | Name of application                          |         |
+
+- [ ] Security. All envs variables cleared after first usage.
+- [ ] Allowed set dependency env variable from other variables.
+
+## Usage
+
+```typescript
+import { ConfigBase, configClass } from "../../lib";
+
+@configClass
+export class ServerConfig extends ConfigBase implements IServerConfig {
+  context: string = "Настройки WEB сервера";
+  get appHost() {
+    return this.fromEnv("APP_HOST")
+      .description("URL address of application")
+      .required()
+      .default("http://localhost")
+      .asUrl();
+  }
+
+  get appPort() {
+    return this.fromEnv("APP_PORT")
+      .description("Port of application")
+      .required()
+      .default(3000)
+      .asInteger();
+  }
+
+  get appEnv() {
+    return this.fromEnv("APP_ENV")
+      .description("Environment in which application will be run")
+      .required()
+      .default("localhost")
+      .asEnum(["production", "staging", "develop", "localhost"]);
+  }
+
+  get appName() {
+    return this.fromEnv("APP_NAME")
+      .description("Name of application")
+      .asString();
+  }
+}
+```
+
+See [DETAIL](./example/README.MD)
+
+## License
+Copyright (c) 2021 beTrue contributors.
 
 ## TODO
-- Реализовать asArrayEnum
-- Возвращать из asEnum typeOf от переданного параметра
-- Для type 'boolean: true, false' добавить 0, 1 в описании
-- Описать example
-- Заменить относительные пути на абсолютные через paths в конфигурации TS.
-- Описать toString для ConfigBase.
-- Сохранять таблицу в MD с указанием секции
-- Перенести context из колонки в строчку на переменными из этого контекста
-- Перевести все сообщения и документацию на английский.
-
-## Использование
-### Описание конфигурации
-```typescript
-import { config, ConfigBase } from "@be-true/config"
-import { IExampleConfig } from ".";
-
-@config
-export class ExampleConfig extends ConfigBase implements IExampleConfig {
-    context = "example config",
-    get appHost(): string {
-        return this.fromEnv("APP_HOST")
-            .required()
-            .description("Доменное имя на котором запускается проект")
-            .example("https://domain.ru") // Переопределяем пример. В других случаях example генерируется из типа
-            .default("http://localhost")
-            .asString()
-        ;
-    }
-
-    get appPort(): number {
-        return this.fromEnv("APP_PORT")
-            .required()
-            .description("Порт на котором запускается приложение")
-            .default(3000)
-            .asInteger()
-        ;
-    }
-
-    get featureFlag(): ?boolean {
-        return this.fromEnv("FEATURE_FLAG")
-            .description('Чтобы включить функциональность укажите этот флаг')
-            .default(false)
-            .asBoolean()
-        ;
-    }
-}
-```
-
-### Где будет использоваться
-```typescript
-interface IExampleConfig {
-    appHost: string,
-    appPort: number,
-    featureFlag: ?boolean,
-}
-
-class AnyFeature {
-    constructor(private config: IExampleConfig) {}
-
-    anyMethod() {
-        ...
-            if (this.config.featureFlag) {
-
-            }
-        ...
-    }
-}
-```
-
-### Инициализация конфигурации
-Файл инициализации проекта
-
-```typescript
-import { configInit } from "@be-true/config";
-
-...
-await configInit({
-    removeAfterLoad: true
-});
-...
-```
-### Экспорт документации
-Файл generate.ts
-```typescript
-import { configExport } from "@be-true/config";
-
-...
-await configExport({
-    target: "./docs/envs.MD",
-    // Если нужно записать только в секцию
-    section: ['<!--{INJECT_ENVS}-->','<!--{/INJECT_ENVS}-->'],
-});
-...
-```
-
-Команда в секции script файла package.json
-```json
-{
-    "scripts": {
-        "generate": "tsc && node ./dist/generate.js"
-    }
-}
-```
-
-### Пример экспортированной таблицы конфигурации приложения
-<!--{INJECT_ENVS}-->
-| name         | required | type    | default          | description                                       |
-|--------------|:--------:|---------|------------------|---------------------------------------------------|
-| APP_HOST     |   yes    | string  | http://localhost | Доменное имя на котором запускается проект        |
-| APP_PORT     |   yes    | integer | 3000             | Порт на котором запускается приложение            |
-| FEATURE_FLAG |          | boolean | false            | Чтобы включить функциональность укажите этот флаг |
-<!--{/INJECT_ENVS}-->
+- Method asArrayEnum should be add.
+- Method toString need to improve for class ConfigBase.
+- Saver documentation to marked section of MD file.
+- Split sections in MD table through context message.

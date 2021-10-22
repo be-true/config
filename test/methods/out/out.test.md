@@ -1,12 +1,12 @@
-| context                   | required | variable    | type                                          | default          | description                                | example |
-|---------------------------|----------|-------------|-----------------------------------------------|------------------|--------------------------------------------|---------|
-| Подключение к базе данных | yes      | DB_HOST     | url                                           |                  | Хост для обращения к БД                    |         |
-| Подключение к базе данных | yes      | DB_DATABASE | string                                        |                  | Используемая база данных                   |         |
-| Подключение к базе данных | yes      | DB_USER     | string                                        |                  | Логин для подключения                      |         |
-| Подключение к базе данных | yes      | DB_PASSWORD | string                                        |                  | Пароль для подключения                     |         |
-| Настройки WEB сервера     | yes      | APP_HOST    | url                                           | http://localhost | Хост на котором запускается веб сервер     |         |
-| Настройки WEB сервера     | yes      | APP_PORT    | integer                                       | 3000             | Порт на котором запускается веб сервер     |         |
-| Настройки WEB сервера     | yes      | APP_ENV     | enum: production, staging, develop, localhost | localhost        | Окружение в котором запускается приложение |         |
-| Настройки WEB сервера     |          | APP_NAME    | string                                        |                  | Название запущенного приложения            |         |
-| Api к внешнему клиенту    | yes      | API_HOST    | url                                           |                  | URL внешнего API                           |         |
-| Api к внешнему клиенту    | yes      | API_TOKEN   | string                                        |                  | Токен доступа внешнего API                 |         |
+| context      | required | variable    | type                                          | default          | description                                  | example |
+|--------------|----------|-------------|-----------------------------------------------|------------------|----------------------------------------------|---------|
+| Database     | yes      | DB_HOST     | url                                           |                  | Host                                         |         |
+| Database     | yes      | DB_DATABASE | string                                        |                  | Database name                                |         |
+| Database     | yes      | DB_USER     | string                                        |                  | Login                                        |         |
+| Database     | yes      | DB_PASSWORD | string                                        |                  | Password                                     |         |
+| External API | yes      | API_HOST    | url                                           |                  | URL of external API                          |         |
+| External API | yes      | API_TOKEN   | string                                        |                  | Access token of external API                 |         |
+| WEB server   | yes      | APP_HOST    | url                                           | http://localhost | URL address of application                   |         |
+| WEB server   | yes      | APP_PORT    | integer                                       | 3000             | Port of application                          |         |
+| WEB server   | yes      | APP_ENV     | enum: production, staging, develop, localhost | localhost        | Environment in which application will be run |         |
+| WEB server   |          | APP_NAME    | string                                        |                  | Name of application                          |         |
