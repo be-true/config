@@ -1,4 +1,4 @@
-This library for made configuring files for your application with validation, prepare data and export documentation.
+This library for made configuring files with validation, prepare data and export documentation.
 
 ## install
 
