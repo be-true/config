@@ -45,7 +45,8 @@ import { ConfigBase, configClass } from "@be-true/config";
 
 @configClass
 export class ServerConfig extends ConfigBase implements IServerConfig {
-  context: string = "Настройки WEB сервера";
+  context: string = "Web server";
+
   get appHost() {
     return this.fromEnv("APP_HOST")
       .description("URL address of application")
