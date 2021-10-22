@@ -10,16 +10,17 @@ or
 yarn add @be-true/config
 ```
 
-## GOALS
-- Zero dependencies.
-- Minimalism API.
-- Simple.
-- TypeScript friendly.
+## Goals
+- The configuration should be replaced with a regular JSON object
+- Zero dependencies
+- Minimalism API
+- Simple
+- TypeScript friendly
 
 ## Features
-- [x] Detect error on start with report.
+- [x] Detect error on start with report
     ![](./docs/example-error-report.png)
-- [x] Export of documentation about configurations
+- [x] Export your configurations to MD table
 
     | context      | required | variable    | type                                          | default          | description                                  | example |
     |--------------|----------|-------------|-----------------------------------------------|------------------|----------------------------------------------|---------|
@@ -34,13 +35,13 @@ yarn add @be-true/config
     | WEB server   | yes      | APP_ENV     | enum: production, staging, develop, localhost | localhost        | Environment in which application will be run |         |
     | WEB server   |          | APP_NAME    | string                                        |                  | Name of application                          |         |
 
-- [ ] Security. All envs variables cleared after first usage.
-- [ ] Allowed set dependency env variable from other variables.
+- [ ] Security. All envs variables cleared after first usage
+- [ ] Allowed set dependency env variable from other variables
 
 ## Usage
 
 ```typescript
-import { ConfigBase, configClass } from "../../lib";
+import { ConfigBase, configClass } from "@be-true/config";
 
 @configClass
 export class ServerConfig extends ConfigBase implements IServerConfig {

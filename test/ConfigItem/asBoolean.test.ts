@@ -49,7 +49,7 @@ metatests.testSync("ConfigItem: asBoolean. False", (test: any) => {
 metatests.testSync("ConfigItem: asBoolean. Example as default", (test: any) => {
     const item = new ConfigItem("False");
     item.asBoolean();
-    test.strictEqual(item.export().type, "boolean: true, false");
+    test.strictEqual(item.export().type, "boolean: true, false, 0, 1");
 });
 
 metatests.testSync("ConfigItem: asBoolean. Example as handle setup", (test: any) => {
