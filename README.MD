@@ -19,7 +19,7 @@ yarn add @be-true/config
 
 ## Features
 - [x] Detect error on start with report
-    ![](./docs/example-error-report.png)
+    ![](https://raw.githubusercontent.com/be-true/config/main/docs/example-error-report.png)
 - [x] Export your configurations to MD table
 
     | context      | required | variable    | type                                          | default          | description                                  | example |

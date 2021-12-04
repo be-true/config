@@ -1,6 +1,6 @@
 {
   "name": "@be-true/config",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "description": "Library for manage configuration for node.js",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -18,13 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/be-true/contract.git"
+    "url": "git+https://github.com/be-true/config.git"
   },
   "keywords": [
     "config",
     "envs",
     "environments",
-    "typescript"
+    "typescript",
+    "Twelve-Factor App"
   ],
   "author": "eawapownikov@gmail.com",
   "license": "MIT",
